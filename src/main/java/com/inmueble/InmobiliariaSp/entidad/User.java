@@ -24,12 +24,16 @@ public class User {
     private String nombre;
     private String email;
     private String password;
-    private int dni;
+    private String dni;
 
+//      //indica el rol y nivel de permisos que tendra este usuario
+//    @Enumerated(EnumType.STRING)
+//    private Rol rol;
+//    
     public User() {
     }
 
-    public User(String id, String nombre, String email, String password, int dni) {
+    public User(String id, String nombre, String email, String password, String dni) {
         this.id = id;
         this.nombre = nombre;
         this.email = email;
@@ -69,11 +73,11 @@ public class User {
         this.password = password;
     }
 
-    public int getDni() {
+    public String getDni() {
         return dni;
     }
 
-    public void setDni(int dni) {
+    public void setDni(String dni) {
         this.dni = dni;
     }
 
@@ -81,5 +85,6 @@ public class User {
     public String toString() {
         return "User{" + "id=" + id + ", nombre=" + nombre + ", email=" + email + ", password=" + password + ", dni=" + dni + '}';
     }
-
+    
+    
 }
