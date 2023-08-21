@@ -1,11 +1,11 @@
 package com.inmueble.InmobiliariaSp.servicios;
 
-import com.inmueble.InmobiliariaSp.entidad.Ente;
 import com.inmueble.InmobiliariaSp.entidad.Inmueble;
+import com.inmueble.InmobiliariaSp.entidad.User;
 import com.inmueble.InmobiliariaSp.enumeraciones.TiposInmueble;
 import com.inmueble.InmobiliariaSp.excepciones.MiException;
-import com.inmueble.InmobiliariaSp.repositorios.EnteRepositorio;
 import com.inmueble.InmobiliariaSp.repositorios.InmuebleRepositorio;
+import com.inmueble.InmobiliariaSp.repositorios.UsuarioRepositorio;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -21,20 +21,20 @@ public class InmuebleServicio {
     @Autowired
     private InmuebleRepositorio inmuebleRepositorio;
     @Autowired
-    private EnteRepositorio enteRepositorio;
+    private UsuarioRepositorio userRepositorio;
 
     @Transactional
     public void crearInmueble(Long id, String direccion, String idDueño, String tiposInmueble) throws MiException {
         validar(id, direccion, idDueño, tiposInmueble);
-        Optional<Inmueble> respuesta = inmuebleRepositorio.findById(id);
-        Optional<Ente> respuestaEnte = enteRepositorio.findById(idDueño);
-        Ente ente = new Ente();
-        if (respuestaEnte.isPresent()) {
-            ente = respuestaEnte.get();
+        Optional<User> respuestaUser = userRepositorio.findById(idDueño);
+        User user = new User();
+        if (respuestaUser.isPresent()) {
+            user = respuestaUser.get();
         }
         Inmueble inmueble = new Inmueble();
         inmueble.setDireccion(direccion);
-        inmueble.setDueño(ente);
+        inmueble.setDueño(user);
+        inmueble.setInquilino(null);
         inmueble.setId(id);
         TiposInmueble[] validar = TiposInmueble.getValues();
         TiposInmueble tipoInmuebleEnum = null;
@@ -44,6 +44,7 @@ public class InmuebleServicio {
             }
         }
         inmueble.setTiposInmueble(tipoInmuebleEnum);
+        inmuebleRepositorio.save(inmueble);
     }
 
     public List<Inmueble> listarInmuebles() {
@@ -53,18 +54,24 @@ public class InmuebleServicio {
     }
 
     @Transactional
-    public void modificarInmueble(Long id, String direccion, String idDueño, String tiposInmueble) throws MiException {
+    public void modificarInmueble(Long id, String direccion, String idDueño, String idInquilino, String tiposInmueble) throws MiException {
         validar(id, direccion, idDueño, tiposInmueble);
         Optional<Inmueble> respuesta = inmuebleRepositorio.findById(id);
-        Optional<Ente> respuestaEnte = enteRepositorio.findById(idDueño);
-        Ente ente = new Ente();
-        if (respuestaEnte.isPresent()) {
-            ente = respuestaEnte.get();
+        Optional<User> respuestaUserDueño = userRepositorio.findById(idDueño);
+        Optional<User> respuestaUserInquilino = userRepositorio.findById(idInquilino);
+        User userDueño = new User();
+        User userInquilino = null;
+        if (respuestaUserDueño.isPresent()) {
+            userDueño = respuestaUserDueño.get();
+        }
+        if (respuestaUserInquilino.isPresent()){
+            userInquilino = respuestaUserInquilino.get();
         }
         if (respuesta.isPresent()) {
             Inmueble inmueble = respuesta.get();
             inmueble.setDireccion(direccion);
-            inmueble.setDueño(ente);
+            inmueble.setDueño(userDueño);
+            inmueble.setInquilino(userInquilino);
             TiposInmueble[] validar = TiposInmueble.getValues();
             TiposInmueble tipoInmuebleEnum = null;
             for (TiposInmueble tipo : validar) {
@@ -78,7 +85,7 @@ public class InmuebleServicio {
     }
 
     public Inmueble getOne(Long id) {
-        return inmuebleRepositorio.getOne(id);
+        return inmuebleRepositorio.getReferenceById(id);
     }
 
     private void validar(Long id, String direccion, String idDueño, String tiposInmueble) throws MiException {
@@ -91,7 +98,6 @@ public class InmuebleServicio {
         if (idDueño.isEmpty() || idDueño == null) {
             throw new MiException("Direccion no puede ser nulo");
         }
-
         boolean validacionTiposInmueble = true;
         TiposInmueble[] validar = TiposInmueble.getValues();
         for (TiposInmueble tipo : validar) {

@@ -4,7 +4,10 @@
  */
 package com.inmueble.InmobiliariaSp.entidad;
 
+import com.inmueble.InmobiliariaSp.enumeraciones.Rol;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import org.hibernate.annotations.GenericGenerator;
@@ -26,10 +29,10 @@ public class User {
     private String password;
     private String dni;
 
-//      //indica el rol y nivel de permisos que tendra este usuario
-//    @Enumerated(EnumType.STRING)
-//    private Rol rol;
-//    
+  //indica el rol y nivel de permisos que tendra este usuario
+    @Enumerated(EnumType.STRING)
+    private Rol rol;
+    
     public User() {
     }
 
