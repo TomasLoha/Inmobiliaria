@@ -6,7 +6,7 @@ package com.inmueble.InmobiliariaSp.servicios;
 
 import com.inmueble.InmobiliariaSp.entidad.User;
 import com.inmueble.InmobiliariaSp.excepciones.MiException;
-import com.inmueble.InmobiliariaSp.repositorio.UsuarioRepositorio;
+import com.inmueble.InmobiliariaSp.repositorios.UsuarioRepositorio;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

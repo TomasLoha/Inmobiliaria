@@ -4,6 +4,7 @@ import com.inmueble.InmobiliariaSp.entidad.Ente;
 import com.inmueble.InmobiliariaSp.entidad.Inmueble;
 import com.inmueble.InmobiliariaSp.enumeraciones.TiposInmueble;
 import com.inmueble.InmobiliariaSp.excepciones.MiException;
+import com.inmueble.InmobiliariaSp.repositorios.EnteRepositorio;
 import com.inmueble.InmobiliariaSp.repositorios.InmuebleRepositorio;
 import java.util.ArrayList;
 import java.util.List;

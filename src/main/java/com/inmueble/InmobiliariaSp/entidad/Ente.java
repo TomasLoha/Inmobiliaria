@@ -4,11 +4,16 @@
  */
 package com.inmueble.InmobiliariaSp.entidad;
 
+import javax.persistence.ManyToOne;
+
 /**
  *
  * @author oscarloha
  */
-//@Entity
-public class Ente {
+@Entity
+public class Ente extends User{
+   
+
+    
     
 }

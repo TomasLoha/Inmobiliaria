@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import org.hibernate.annotations.GenericGenerator;
@@ -14,9 +15,8 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 public class Inmueble {
 
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
+@Id
+    @GeneratedValue(strategy= GenerationType.SEQUENCE)
     private Long id;
     private String direccion;
     @ManyToOne
