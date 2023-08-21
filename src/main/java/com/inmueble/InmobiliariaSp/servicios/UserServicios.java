@@ -9,6 +9,7 @@ import com.inmueble.InmobiliariaSp.excepciones.MiException;
 import com.inmueble.InmobiliariaSp.repositorio.UsuarioRepositorio;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,14 +39,38 @@ public class UserServicios  {
         
         usuario.setNombre(nombre);
         usuario.setEmail(email);
-        usuario.setPassword(email);
-        usuario.setDni(email);
+        usuario.setPassword(password);
+        usuario.setDni(dni);
 //        codifico el codigo que recive la funcion
 //        usuario.setPassword(new BCryptPasswordEncoder().encode(password));
 //        usuario.setRol(Rol.USER);
         
         usuarioRepositorio.save(usuario);
     }
+    
+    //En caso de que ocurra algun error el programa no guardara cambios
+    @Transactional
+    public void modificarNoticia(String id,String nombre, String email, String password, String password2, String dni) throws MiException{
+        
+       validar(nombre,email,password,password2,dni);
+        
+        //evalua que exista una noticia con ese id
+        Optional<User> respuesta = usuarioRepositorio.findById(id);
+        
+        //si la respuesta existe se realiza la modificacion
+        if(respuesta.isPresent()){
+            User usuario = respuesta.get();
+
+            //se cambia el titulo y el cuerpo
+             usuario.setNombre(nombre);
+             usuario.setEmail(email);
+             usuario.setPassword(password);
+             usuario.setDni(dni);
+            
+            //guardamos los cambios en el repositorio
+            usuarioRepositorio.save(usuario);
+        }
+    }    
     
     //metodo para validar los datos importados
      public void validar(String nombre, String email, String password, String password2,String dni) throws MiException{

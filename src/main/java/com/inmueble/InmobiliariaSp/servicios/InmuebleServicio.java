@@ -1,5 +1,6 @@
 package com.inmueble.InmobiliariaSp.servicios;
 
+import com.inmueble.InmobiliariaSp.entidad.Ente;
 import com.inmueble.InmobiliariaSp.entidad.Inmueble;
 import com.inmueble.InmobiliariaSp.enumeraciones.TiposInmueble;
 import com.inmueble.InmobiliariaSp.excepciones.MiException;
