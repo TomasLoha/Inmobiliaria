@@ -1,21 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.inmueble.InmobiliariaSp.servicios;
 
 import com.inmueble.InmobiliariaSp.entidad.User;
 import com.inmueble.InmobiliariaSp.excepciones.MiException;
-import com.inmueble.InmobiliariaSp.repositorios.UsuarioRepositorio;
+import com.inmueble.InmobiliariaSp.repositorios.UserRepositorio;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
  *
@@ -26,7 +19,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 public class UserServicios  {
     
     @Autowired
-    private UsuarioRepositorio usuarioRepositorio;
+    private UserRepositorio userRepositorio;
     
     
     //metodo para crear un usuario
@@ -45,7 +38,7 @@ public class UserServicios  {
 //        usuario.setPassword(new BCryptPasswordEncoder().encode(password));
 //        usuario.setRol(Rol.USER);
         
-        usuarioRepositorio.save(usuario);
+        userRepositorio.save(usuario);
     }
     
     //En caso de que ocurra algun error el programa no guardara cambios
@@ -55,7 +48,7 @@ public class UserServicios  {
        validar(nombre,email,password,password2,dni);
         
         //evalua que exista una noticia con ese id
-        Optional<User> respuesta = usuarioRepositorio.findById(id);
+        Optional<User> respuesta = userRepositorio.findById(id);
         
         //si la respuesta existe se realiza la modificacion
         if(respuesta.isPresent()){
@@ -68,7 +61,7 @@ public class UserServicios  {
              usuario.setDni(dni);
             
             //guardamos los cambios en el repositorio
-            usuarioRepositorio.save(usuario);
+            userRepositorio.save(usuario);
         }
     }    
     
@@ -102,7 +95,7 @@ public class UserServicios  {
      public List<User> listarUsuarios(){
 
         List<User> user = new ArrayList();
-        user = usuarioRepositorio.findAll();
+        user = userRepositorio.findAll();
         
         //Devuelve una lista con todas las noticias
         return (user);

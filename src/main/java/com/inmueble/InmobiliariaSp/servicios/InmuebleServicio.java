@@ -5,7 +5,7 @@ import com.inmueble.InmobiliariaSp.entidad.User;
 import com.inmueble.InmobiliariaSp.enumeraciones.TiposInmueble;
 import com.inmueble.InmobiliariaSp.excepciones.MiException;
 import com.inmueble.InmobiliariaSp.repositorios.InmuebleRepositorio;
-import com.inmueble.InmobiliariaSp.repositorios.UsuarioRepositorio;
+import com.inmueble.InmobiliariaSp.repositorios.UserRepositorio;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -21,7 +21,7 @@ public class InmuebleServicio {
     @Autowired
     private InmuebleRepositorio inmuebleRepositorio;
     @Autowired
-    private UsuarioRepositorio userRepositorio;
+    private UserRepositorio userRepositorio;
 
     @Transactional
     public void crearInmueble(Long id, String direccion, String idDueño, String tiposInmueble) throws MiException {

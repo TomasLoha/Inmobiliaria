@@ -2,10 +2,13 @@ package com.inmueble.InmobiliariaSp.entidad;
 
 import com.inmueble.InmobiliariaSp.enumeraciones.TipoTransaccion;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import org.hibernate.annotations.GenericGenerator;
+import javax.persistence.ManyToOne;
+
 
 
 
@@ -15,8 +18,12 @@ public class Transacciones {
 @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE)
     private Long id;
+@ManyToOne
     private Inmueble inmueble;
+
     private String nombre;
+    
+        @Enumerated(EnumType.STRING)
     private TipoTransaccion tipoTransaccion;
 
     public Long getId() {
