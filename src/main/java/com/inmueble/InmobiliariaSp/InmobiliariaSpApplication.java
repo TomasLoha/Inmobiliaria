@@ -8,6 +8,7 @@ public class InmobiliariaSpApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(InmobiliariaSpApplication.class, args);
+
 	}
 
 }

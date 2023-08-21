@@ -81,7 +81,7 @@ public class TrasnsaccionesServicio {
     }
 
     public Transacciones getOne(Long id) {
-        return transaccionesRepositorio.getOne(id);
+        return transaccionesRepositorio.getReferenceById(id);
     }
 
     private void validar(Long id, Long idInmueble, String nombre, String tipoTransaccion) throws MiException {

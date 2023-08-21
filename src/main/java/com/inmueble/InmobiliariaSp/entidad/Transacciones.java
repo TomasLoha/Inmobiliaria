@@ -3,8 +3,9 @@ package com.inmueble.InmobiliariaSp.entidad;
 import com.inmueble.InmobiliariaSp.enumeraciones.TipoTransaccion;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import org.hibernate.annotations.GenericGenerator;
+import javax.persistence.ManyToOne;
 
 
 
@@ -12,9 +13,9 @@ import org.hibernate.annotations.GenericGenerator;
 public class Transacciones {
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    @GeneratedValue(strategy= GenerationType.SEQUENCE)
     private Long id;
+    @ManyToOne
     private Inmueble inmueble;
     private String nombre;
     private TipoTransaccion tipoTransaccion;
