@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { useEffect } from 'react';
+import axios from 'axios';
 
 export const FormUser = () => {
 
@@ -11,6 +12,7 @@ export const FormUser = () => {
 
   const date = new Date().getFullYear()
 
+  axios.defaults.withCredentials = true
   const {
     register,
     handleSubmit,
@@ -18,9 +20,31 @@ export const FormUser = () => {
     watch,
   } = useForm();
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(date);
-  });
+    
+
+    const onSubmit = async (data) => {
+        try {
+            const queryParams = new URLSearchParams({
+                nombre: data.nombre,
+                email: data.email,
+                password: data.password,
+                password2: data.confirmarPassword,
+                dni: data.dni,
+            }).toString();
+
+            const response = await axios.post(
+                `http://localhost:8080/api/users/create?${queryParams}`
+            );
+
+            console.log('Solicitud completa:', response.request); // Imprime la solicitud completa
+            console.log('Respuesta del backend:', response.data);
+        } catch (error) {
+            console.error('Error al crear usuario:', error);
+        }
+    };
+
+
+
 
 
   return (
