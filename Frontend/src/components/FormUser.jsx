@@ -20,11 +20,11 @@ export const FormUser = () => {
 
   const onSubmit = (data) => {
       const user = {
-      nombre = data.nombre,
-      email = data.email,
-      password = data.password,
-      dni = data.dni,
-      rol = data.rol
+      nombre : data.nombre,
+      email : data.email,
+      password : data.password,
+      dni : data.dni,
+      rol : data.rol
   }
     UserService.createUsers(user)
       .then(
